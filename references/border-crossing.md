@@ -25,20 +25,23 @@ Keep it to what changes the plan:
   "name": "Oybek (Uzbekistan) – Fotehobod (Tajikistan)",
   "variants": ["Oybek-Buston", "Chanak", "Ойбек", "Фотеҳобод"],
   "through_or_change": "Change at the border; walk across. Cars do not usually cross.",
-  "walking": "About 800 m between the posts with luggage; motor carts for a fee.",
+  "walking": "Short walk between the posts; porters with motor carts for a fee (fill from dated sources).",
   "open_to_foreigners": "Yes. Nearby crossings may be for locals only; use Oybek.",
-  "hours": "24 hours",
+  "hours": "Travellers report 24 hours; confirm with a recent source (border hours age fast).",
   "transport_hours": "Shared taxis mostly run in daytime.",
   "each_side": "Money changers and SIM cards on the Uzbek side; little on the Tajik side. Yandex Go in Uzbekistan, Maxim in Tajikistan.",
   "before_crossing": "Change money, buy a SIM or eSIM that works on the far side, save offline maps.",
   "last_onward": "...",
-  "entry_rules_url": "https://... (official)",
+  "entry_rules_url": "https://... (official page for the user's nationality)",
   "exit_rules": "Uzbek officers may check hotel registration slips; declare large amounts of cash.",
-  "tips": "Waiting 30–90 min; longer on Friday afternoons and before holidays.",
+  "tips": "Waiting times from dated reports only; longer on Friday afternoons and before holidays.",
   "confidence": "Likely", "confidence_reason": "...",
   "sources": ["https://..."]
 }
 ```
+
+The JSON above is a **shape** for this corridor, not a source of distances or hours.
+Fill every field from dated sources for the run you are doing.
 
 - **Through or change:** whether the vehicle continues or you change, whether walking
   across is allowed (some crossings require being in a vehicle), and whether a through

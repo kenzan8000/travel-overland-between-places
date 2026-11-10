@@ -9,23 +9,35 @@ These have no timetable and often no fixed stops, so the usual card fields do no
 The questions become: where do I stand, how do I recognize the right one, how do I pay,
 and how do I get off.
 
-## Ride fields
+## Which pattern and which fields
 
-Use these in a ride with `"pattern": "hail_and_ride"` (or `"when_full"` for a rank):
+| Pattern | Use for | Required fields |
+| --- | --- | --- |
+| `hail_and_ride` | Flag down on the road | `wait` (with direction of travel), `recognize`, and usually `stop` |
+| `when_full` | Shared-taxi or minibus rank that leaves when full | `board` with a landmark is enough; add usual fill-up wait |
+| `scheduled` | Numbered bus that uses a terminal or fixed stop | `board` / `alight`; optional `recognize` for the signboard |
+
+A full-size bus that drops you on a highway is `scheduled`, not hail-and-ride. A boat
+that waits for enough passengers is `when_full` (or `if_enough_passengers`).
+
+## Ride fields (`hail_and_ride`)
 
 ```json
 {
   "mode": "jeepney", "pattern": "hail_and_ride",
-  "wait": "Jeepney terminal on Jose Romero Rd behind Robinsons Place, or the national highway, southbound lane (towards Zamboanguita)",
-  "recognize": "Destination on the windshield board; some only go to Zamboanguita, so ask before boarding",
-  "service_hours": "About 05:45–18:30 (old, undated forum post)",
-  "price": "₱25–40 reported; fare matrix raised on 28 Sep 2026, so expect more",
-  "payment": "Pass the fare forward ('Bayad po'); small notes and coins",
-  "stop": "Say 'Lugar lang' (Cebuano) or 'Para po' (Tagalog), or knock on the roof",
-  "get_off": "Malatapay market, then walk 2–15 min to the beach",
+  "wait": "Terminal on [road], or the national highway, [direction] lane (towards [town])",
+  "recognize": "Destination on the windshield board; ask before boarding if some only go part-way",
+  "service_hours": "... (with the date of the source)",
+  "price": "... reported on [date]; check whether a fare matrix rose after that",
+  "payment": "Local custom (pass fare forward, pay at the window, passenger list…)",
+  "stop": "Local stop phrase, or knock on the roof",
+  "get_off": "Landmark, then what comes next",
   "sources": ["https://..."]
 }
 ```
+
+Fill every field from dated sources for **this** trip. The shape above is a template;
+do not copy numbers or hours from it.
 
 - **Where to wait:** the road or junction, and the **direction of travel** ("southbound
   lane, towards Zamboanguita"), not left or right, which depends on the country's
@@ -37,9 +49,9 @@ Use these in a ride with `"pattern": "hail_and_ride"` (or `"when_full"` for a ra
 - **Paying:** official fare matrix where one exists (for example the LTFRB matrix in the
   Philippines), with the date it took effect, next to what travellers actually paid.
   Check the news for fare changes after the latest first-hand post. Local customs differ:
-  passing the fare forward, paying the driver at the window when getting off
-  (Dumaguete), or writing your name and an emergency number on a passenger list and
-  paying up front (long South African minibus taxi trips).
+  passing the fare forward, paying the driver at the window when getting off, or writing
+  your name and an emergency number on a passenger list and paying up front (long South
+  African minibus taxi trips).
 - **Stopping:** the local phrase, and any gesture or roof knock.
 - **Getting off:** the landmark, and what comes next.
 - **Luggage:** whether a big bag fits or costs extra.
@@ -63,11 +75,15 @@ Use these in a ride with `"pattern": "hail_and_ride"` (or `"when_full"` for a ra
 
 Trips like bus to a town, jeepney, tricycle, then a boat get one short ride entry each,
 in order, plus a `time_breakdown` that includes waiting. Note the last connection of the
-day on each ride, and for boats the authority that suspends trips in bad weather (for
-example the Philippine Coast Guard), cash needs, and the last boat back.
+day on each ride in `tips` or `warnings` (there is no separate schema field), and for
+boats the authority that suspends trips in bad weather (for example the Philippine
+Coast Guard), cash needs, and the last boat back. Separate an agreed round-trip boat
+return from any published last public boat.
 
 ## Confidence
 
-These vehicles drop one level unless a report from the last 3 to 6 months exists, and
+These vehicles drop one level unless a report from the last **6 months** exists, and
 one more where routes are being redrawn (for example the Philippines' Public Transport
-Modernization Program).
+Modernization Program — check local news or posts for whether **this corridor** is
+affected; do not assume a national programme changes every route). Shared taxis with no
+official source cannot be Confirmed; see `confidence.md`.

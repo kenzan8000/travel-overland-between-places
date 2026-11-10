@@ -30,15 +30,16 @@ follow the manual path in Step 9.
 | `references/confidence.md` | Always, before Step 7. Full rating rules, ways to check, false information on the spot. |
 | `references/border-crossing.md` | The trip crosses a border. |
 | `references/hail-and-ride.md` | An option uses a vehicle you flag down on the road (jeepney, songthaew, dolmuş, colectivo, matatu, minibus taxi...) or a "leaves when full" taxi rank. |
-| `references/reliability.md` | An option has a change, a known punctuality problem, or a likely disruption (strike, track works, weather, season), or the user asks about delays. |
+| `references/reliability.md` | An option has a change, a known punctuality problem, a `when_full` or boat leg, or a likely disruption (strike, track works, weather, season), or the user asks about delays. Always for boats and ferries (Coast Guard / gale warnings). |
 
 Paths are relative to this skill's folder.
 
-## Step 1: Ask for the two places in the chat and wait
+## Step 1: Confirm the places (ask only what is missing)
 
-- If the message names both places, go to Step 2.
-- Otherwise your whole reply is one short question in the chat, in the user's
-  language, for example:
+- If the message names both places, go to Step 2. Do not re-ask for what is already
+  clear.
+- If either place is missing, your whole reply is one short question in the chat, in
+  the user's language, for example:
 
   > Where are you starting from and where do you want to go? Add the date if you know it.
 
@@ -46,11 +47,14 @@ Paths are relative to this skill's folder.
 - Ask only if a place is ambiguous (which Alexandria?) or has several names ("Kazbegi"
   is the town of Stepantsminda). Do not ask about budget, luggage or preferences; use
   them if the user gives them.
-- If the trip crosses a border, read `references/border-crossing.md` and ask for the
-  user's nationality in the same question, because entry rules depend on it.
-- Note the **user's language**. Write the answer in it.
+- If the trip crosses a border, read `references/border-crossing.md`. Ask for the
+  user's nationality only when it is not already in the message; entry rules depend on
+  it.
+- Note the **user's language** (the language of their message). Write the answer in it.
 - If no date is given, plan for the next few days and say so. Note the day of week and
-  the season: timetables differ by both.
+  the season: timetables differ by both. For "today" or "now", note the time of day if
+  the message gives it, and warn when same-day services (morning boats, last buses)
+  may already be gone.
 
 ## Step 2: Choose the languages and the name variants
 
@@ -66,20 +70,24 @@ in the answer:
 3. **The languages of the country's largest visitor groups**, based on where visitors
    actually come from, not on neighbours. A quick search for the country's top tourist
    source markets settles it. Chinese and Korean for Japan; Polish and Russian for
-   Georgia.
+   Georgia. Stop a visitor language after the first page of results if you find only
+   machine translations of SEO or commercial pages; report "nothing first-hand".
 4. **English, always**, if not already covered.
 5. **The user's language**, for searching only when its speakers write a lot about the
-   region.
+   region (Japanese for Central Asia, for example).
 
 Examples: Bulgaria is English and Bulgarian. Georgia is English, Russian, Georgian and
-Polish. Tashkent to Khujand is Russian, English, Uzbek and Tajik. The Philippines is
-English, Filipino, and Cebuano in the Visayas and Mindanao.
+Polish. Tashkent to Khujand is Russian, English, Uzbek and Tajik (add Chinese only if a
+quick visitor-market search shows China among the top sources and the first results are
+not SEO copies). The Philippines is English, Filipino, and Cebuano in the Visayas and
+Mindanao; add Hiligaynon when local Negros or Panay news is in it.
 
 List **name variants** for both places and for every station, bazaar, stop and border
 crossing you meet: local script, transliterations, old names and every script the
-language uses. Uzbek has Xo‘jand, Хўжанд and Toşkent-style spellings; Tajik writes
-Хуҷанд, Russian Худжанд. Kuyluk, Qo'yliq, Kulyuk and Куйлюк are one bazaar. Searching
-the wrong spelling finds nothing.
+language uses. Skip a name that is already Latin-only and identical across sources.
+Uzbek has Xo‘jand, Хўжанд and Toşkent-style spellings; Tajik writes Хуҷанд, Russian
+Худжанд. Kuyluk, Qo'yliq, Kulyuk and Куйлюк are one bazaar. Searching the wrong
+spelling finds nothing.
 
 Collect the transport words in each language: bus station, timetable, minibus, shared
 taxi, ferry (for example автогара and разписание in Bulgarian, маршрутка and автовокзал
@@ -89,7 +97,9 @@ in Russian, gare routière and taxi-brousse in French).
 
 Run the searches in every chosen language. Open and read the pages, not the search
 snippets: snippets, cached copies and AI summaries regularly show other dates, merge
-services or say "no direct train" when there is one.
+services or say "no direct train" when there is one. When a page tool times out, use a
+search highlight only as a lead and mark the fact Uncertain until you can read the
+page; never treat a snippet as Confirmed.
 
 In rough order of trust:
 
@@ -154,7 +164,8 @@ stopped, timetable changes) and take the current status from the newest reliable
 evidence, not from the newest-looking page.
 
 **Never leave out the local option**, even when locals warn tourists off it. List it
-with first-hand notes on safety, waiting time and price, and let the user decide.
+with first-hand notes on safety, waiting time and price, and let the user decide. A
+thin Uncertain card is enough when sources are old; do not invent detail to fill it.
 
 **Ruling out is a result too:** "no train since 2020", "the direct bus is not in the
 station's lists for 4 to 7 November".
@@ -171,9 +182,11 @@ For every place where the user gets on or off:
 - distance and route from the centre (walk, city bus, taxi with a rough fare), and the
   same for the arrival point, which is often far from the centre;
 - coordinates: take them from the operator, a map app or a forum post, and accept them
-  only if two independent sources agree within about 150 m. Run
-  `scripts/check_points.py` (Step 9) or check manually on OpenStreetMap. Leave
-  coordinates out rather than guess.
+  only if two independent sources agree within about 150 m. Nominatim alone, or
+  `check_points.py`'s single candidate, is one source; a second is another map app, the
+  operator, or a dated post with a pin. Informal stops (highway drop, beach wharf) often
+  have no pin: describe them with a landmark and leave coordinates out. Run
+  `scripts/check_points.py` (Step 9) or check manually on OpenStreetMap.
 
 ## Step 6: Fill in the details
 
@@ -182,6 +195,8 @@ For each option, and for each ride in a several-ride option:
 - departure times **for the travel date's day of week and season**, frequency, first
   and last departure; for "leaves when full", the usual window and cut-off;
 - the **return leg and its last departure** when the user may come back the same day;
+  for an assigned round-trip boat, separate the agreed return time from any published
+  last public boat;
 - scheduled and realistic duration; for several rides, a time breakdown that includes
   waiting (for example 1.5 h to the border, 30 min at the border, 40 min waiting for the
   next taxi to fill, 2 h 20 min onward);
@@ -270,8 +285,16 @@ example is `examples/plovdiv-veliko-tarnovo.json`.
 
 - `search_query`: the name that works on maps when the local name does not (Nominatim
   finds "Veliko Tarnovo railway station" but not "гара Велико Търново").
+- `town`: the town the point is in, so geocoding searches the right place.
+- `confidence_short`: a few words for the summary line (for example "BDZ planner");
+  do not repeat the month already in `last_confirmed`.
 - `undated`: the page shows no date; `checked` is when you read it. An undated official
   page supports Likely at most.
+- `message.second`: optional second language of the ready-made message (for example
+  Russian next to Uzbek). Omit `translation` when it would duplicate `second` and the
+  user's language is already that language.
+- Ride-level `sources` are enough; option-level `sources` need only URLs not already on
+  a ride. Mixed trips (scheduled bus + `when_full` boat) use one pattern per ride.
 
 - `pattern`: `scheduled`, `if_enough_passengers`, `when_full`, `hail_and_ride`,
   `on_demand` (private driver, app, charter) or `empty_leg`.

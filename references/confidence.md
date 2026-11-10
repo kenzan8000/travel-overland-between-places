@@ -12,8 +12,10 @@ Facts go stale at different speeds:
 - **Fast:** minibus and shared-taxi times and routes, "leaves when full" windows,
   border rules, seasonal timetables, anything after a fare or currency change.
 
-An option is only as confident as the weakest fact the user relies on. Put that weakest
-fact in `facts` with its own label and reason, so the user sees which part to check.
+An option is only as confident as the weakest fact the user relies on to take the trip
+(boarding point, that it runs, the day). Weaker side facts (exact fare after a currency
+change, which stop the driver prefers) go in `facts` with their own label and reason;
+the option may stay Likely while those stay Uncertain.
 
 ## Labels
 
@@ -29,14 +31,18 @@ Ages are counted from `trip.checked_on`.
 Downgrade one level:
 
 - for non-bookable minibuses, shared taxis and hail-and-ride vehicles, unless a report
-  from the last 3 to 6 months exists;
+  from the last **6 months** exists;
 - again where routes are being redrawn (for example the Philippines' Public Transport
-  Modernization Program);
+  Modernization Program), but only when local news or posts show **this corridor** is
+  affected;
 - for off-season travel, holidays, road works or border changes found in recent news;
 - for any border fact, one level faster than other facts.
 
 Hard limits:
 
+- Shared taxis, hail-and-ride vehicles and other services with **no official source**
+  cannot be **Confirmed**; two agreeing first-hand reports under 6 months support
+  Likely at most.
 - A published timetable that recent first-hand reports contradict is **at most
   Uncertain** (bus 251 to Oybek was listed as hourly; travellers waited hours or could
   not find it).
@@ -45,7 +51,8 @@ Hard limits:
 - Copied pages count as one source. "Two sources agree" means two independent ones.
 - Aggregators, commercial transfer sellers (and their "checked on" dates, which a
   seller can set to anything), affiliate guides and AI summaries never lift a fact
-  above Uncertain on their own.
+  above Uncertain on their own. Community timetables that are not from the operator
+  are leads only.
 - Visa and entry rules are never rated from blog posts; they need an official source.
 
 ## Timelines

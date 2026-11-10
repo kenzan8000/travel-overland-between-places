@@ -302,7 +302,7 @@ class Renderer:
             line += f"\n  - {self.L('from_centre')}: {text(point['from_centre'])}"
         return line
 
-    def ride_block(self, ride: dict, n: int, total: int, where: str) -> list[str]:
+    def ride_block(self, ride: dict, n: int, total: int, where: str, seen: set[str] | None = None) -> list[str]:
         out = []
         head_bits = [text(ride.get("mode")).capitalize(), text(ride.get("operator")), text(ride.get("service"))]
         pattern = PATTERN_NAMES.get(ride.get("pattern", ""), "")
@@ -331,7 +331,11 @@ class Renderer:
             lines.append(self.point_line("get_off", ride.get("alight")))
         lines.append(self.bullet(self.L("get_off"), ride.get("get_off")))
         lines.append(self.bullet(self.L("comfort"), ride.get("comfort")))
-        refs = self.source_refs(ride.get("sources"), where)
+        urls = [u for u in as_list(ride.get("sources")) if isinstance(u, str)]
+        if seen is not None:
+            urls = [u for u in urls if u not in seen]
+            seen.update(u for u in as_list(ride.get("sources")) if isinstance(u, str))
+        refs = self.source_refs(urls, where)
         if refs:
             lines.append(f"- **{self.L('item_sources')}:** {refs}")
         out += [l for l in lines if l]
@@ -343,7 +347,12 @@ class Renderer:
         conf = text(opt.get("confidence"))
         note = text(opt.get("confidence_short"))
         when = fmt_date(opt.get("last_confirmed"))
-        detail = ", ".join(b for b in (note, when) if b)
+        bits = []
+        if note:
+            bits.append(note)
+        if when and (not note or when.lower() not in note.lower()):
+            bits.append(when)
+        detail = ", ".join(bits)
         conf_part = f"{conf} ({detail})" if detail else conf
         parts = [f"**{title}**", text(opt.get("summary")), conf_part]
         return f"{i}. " + " · ".join(p for p in parts if p)
@@ -365,8 +374,7 @@ class Renderer:
         rides = [r for r in as_list(opt.get("rides")) if isinstance(r, dict)]
         cited_in_rides: set[str] = set()
         for n, ride in enumerate(rides, 1):
-            out += self.ride_block(ride, n, len(rides), where)
-            cited_in_rides.update(u for u in as_list(ride.get("sources")) if isinstance(u, str))
+            out += self.ride_block(ride, n, len(rides), where, cited_in_rides)
         lines = []
         breakdown = as_list(opt.get("time_breakdown"))
         if breakdown:
@@ -402,12 +410,14 @@ class Renderer:
             lines.append(f"- **{self.L('message')}:**")
             lines.append("")
             lines.append(f"  > {text(msg['local'])}")
-            if msg.get("second"):
+            second = text(msg.get("second"))
+            translation = text(msg.get("translation"))
+            if second:
                 lines.append("  >")
-                lines.append(f"  > {text(msg['second'])}")
-            if msg.get("translation"):
+                lines.append(f"  > {second}")
+            if translation and translation != second:
                 lines.append("")
-                lines.append(f"  *{text(msg['translation'])}*")
+                lines.append(f"  *{translation}*")
         warns = as_list(opt.get("warnings"))
         if warns:
             lines.append(f"- **{self.L('warnings')}:** " + "; ".join(text(w) for w in warns))

@@ -1,7 +1,9 @@
 # Reliability: will it run as scheduled?
 
-Read this when an option has a change, a known punctuality problem, or a likely
-disruption (strike, track works, weather, season), or when the user asks about delays.
+Read this when an option has a change, a known punctuality problem, a `when_full` or
+boat leg, or a likely disruption (strike, track works, weather, season), or when the
+user asks about delays. Always read it for boats and ferries: check the day's gale
+warning and the authority that suspends trips (for example the Philippine Coast Guard).
 
 Reliability is separate from confidence. Confidence asks whether the information is
 correct; reliability asks whether the service will actually run as published. A Deutsche

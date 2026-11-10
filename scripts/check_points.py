@@ -139,6 +139,19 @@ def main() -> int:
         data = json.load(f)
     trip = data.get("trip") or {}
     language = trip.get("user_language") or "en"
+    name_to_code = {
+        "bulgarian": "bg", "russian": "ru", "uzbek": "uz", "tajik": "tg",
+        "georgian": "ka", "polish": "pl", "filipino": "fil", "tagalog": "tl",
+        "cebuano": "ceb", "hiligaynon": "hil", "japanese": "ja", "korean": "ko",
+        "chinese": "zh", "french": "fr", "spanish": "es", "portuguese": "pt",
+        "arabic": "ar", "german": "de", "english": "en",
+    }
+    for lang in data.get("languages") or []:
+        if isinstance(lang, dict) and lang.get("role") == "local" and lang.get("language"):
+            code = name_to_code.get(str(lang["language"]).split(",")[0].strip().lower())
+            if code:
+                language = f"{code},{language}" if code != language else code
+            break
     key = os.environ.get("GOOGLE_MAPS_API_KEY", "").strip()
     mode = args.mode if args.mode != "auto" else ("google" if key else "osm")
     if mode == "google" and not key:
@@ -148,11 +161,14 @@ def main() -> int:
 
     problems = 0
     unreachable = 0
+    with_coords = 0
+    without_coords = 0
     for where, point in points(data):
         lat, lon = point.get("lat"), point.get("lon")
         label = point.get("local_name") or point.get("name") or "?"
         town = point.get("town") or ""
         if not isinstance(lat, (int, float)) or not isinstance(lon, (int, float)):
+            without_coords += 1
             found = []
             for q in queries(point, town):
                 try:
@@ -170,6 +186,7 @@ def main() -> int:
             elif not unreachable:
                 print(f"- {where}: {label}: no coordinates and no map match; describe it with a landmark")
             continue
+        with_coords += 1
         best = None
         for q in queries(point, town):
             try:
@@ -195,6 +212,9 @@ def main() -> int:
     if unreachable:
         print("Some lookups failed. If none could be reached, this environment has no internet; "
               "check the points on openstreetmap.org with your browsing tool.", file=sys.stderr)
+    if without_coords and not with_coords:
+        print(f"note: {without_coords} point(s) have no coordinates; nothing was distance-checked "
+              "(that is fine when pins are unavailable — describe them with a landmark)", file=sys.stderr)
     print(f"{problems} point(s) to check")
     return 1 if problems else 0
 
