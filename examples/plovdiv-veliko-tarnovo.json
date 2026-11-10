@@ -1,0 +1,341 @@
+{
+  "trip": {
+    "from": "Plovdiv, Bulgaria",
+    "to": "Veliko Tarnovo, Bulgaria",
+    "slug": "plovdiv-veliko-tarnovo",
+    "date": "2026-11-12",
+    "checked_on": "2026-11-10",
+    "user_language": "en",
+    "cross_border": false
+  },
+  "labels": {},
+  "languages": [
+    {
+      "language": "Bulgarian",
+      "role": "local",
+      "found": "BDZ journey planner for 12 Nov, the operators' own sites, municipal timetable pages"
+    },
+    {
+      "language": "English",
+      "role": "second",
+      "found": "Reddit reports on how the minibuses work: pay the driver, platform, queue, van size"
+    }
+  ],
+  "recommendation": "Take the 08:30 minibus from Avtogara Sever if you want to arrive by lunchtime, or the direct 16:05 train for a cheaper, roomier ride that arrives in the evening. Prices are in euros since January 2026.",
+  "options": [
+    {
+      "id": "train-direct",
+      "title": "Direct train",
+      "mode": "train",
+      "summary": "16:05 → 20:36 · 4 h 31 min · €7.98",
+      "confidence": "Confirmed",
+      "confidence_short": "BDZ planner",
+      "confidence_reason": "BDZ's journey planner queried for Thursday 12 Nov 2026, with the euro fare",
+      "last_confirmed": "2026-11-10",
+      "reliability": "No punctuality figures found for this line; allow a margin for evening connections",
+      "rides": [
+        {
+          "mode": "train",
+          "operator": "BDZ",
+          "service": "fast train 4632 to Ruse",
+          "pattern": "scheduled",
+          "board": {
+            "name": "Plovdiv Central Station",
+            "local_name": "гара Пловдив",
+            "search_query": "Plovdiv Central Station",
+            "lat": 42.134422,
+            "lon": 24.741373
+          },
+          "alight": {
+            "name": "Veliko Tarnovo station",
+            "local_name": "гара Велико Търново",
+            "search_query": "Veliko Tarnovo railway station",
+            "lat": 43.074146,
+            "lon": 25.63824,
+            "from_centre": "Below the old town, outside the centre; take a taxi or city bus up"
+          },
+          "departures": "16:05",
+          "duration": "4 h 31 min, via Karlovo, Kazanlak and Tryavna",
+          "price": "€7.98, 2nd class",
+          "payment": "BDZ online booking or the station ticket office; seat reservation is mandatory",
+          "sources": [
+            "https://razpisanie.bdz.bg/bg/plovdiv/veliko-tarnovo/12.11.2026",
+            "https://razpisanie.bdz.bg/bg/train-info/4632/12.11.2026"
+          ]
+        }
+      ],
+      "how_to_check": [
+        "Query the BDZ planner for your exact date: razpisanie.bdz.bg"
+      ],
+      "phrases": [
+        {
+          "phrase": "задължителна резервация",
+          "meaning": "reservation required"
+        }
+      ],
+      "sources": [
+        "https://razpisanie.bdz.bg/bg/plovdiv/veliko-tarnovo/12.11.2026"
+      ]
+    },
+    {
+      "id": "minibus-0830",
+      "title": "Morning minibus (Plovdiv Express-2000)",
+      "mode": "minibus",
+      "summary": "08:30 → about 11:50–12:30 · 3.5–4 h · about €14",
+      "confidence": "Likely",
+      "confidence_short": "operator page and 2025 reports",
+      "confidence_reason": "The time is on the operator's page and in first-hand posts from 2025; the only price is in old leva",
+      "last_confirmed": "2025-10",
+      "reliability": "A traveller arrived about 40 minutes later than the operator's 11:50",
+      "rides": [
+        {
+          "mode": "minibus",
+          "operator": "Plovdiv Express-2000",
+          "pattern": "scheduled",
+          "board": {
+            "name": "Avtogara Sever (North bus station), platform 2",
+            "local_name": "Автогара Север",
+            "landmark": "The driver arrives around 08:00; there is often a queue",
+            "town": "Пловдив"
+          },
+          "alight": {
+            "name": "Avtogara Zapad (West bus station)",
+            "local_name": "Автогара Запад",
+            "search_query": "Автогара Запад, Велико Търново",
+            "lat": 43.072639,
+            "lon": 25.600175,
+            "from_centre": "About 45 minutes' walk to the centre; take a taxi or city bus"
+          },
+          "departures": "08:30 daily, via Chirpan and Stara Zagora",
+          "duration": "3 h 20 min scheduled",
+          "realistic_duration": "about 4 h",
+          "price": "28 leva in 2025, about €14.30 at the fixed rate; no current euro price found",
+          "payment": "Cash to the driver; no online sale",
+          "comfort": "18-seat van with no air conditioning",
+          "sources": [
+            "https://plovdivexpres-2000.com/",
+            "https://www.reddit.com/r/AskBulgaria/comments/1o4gsyo/public_transport_in_bulgaria/"
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "fact": "Price in euros",
+          "confidence": "Likely",
+          "reason": "only a 2025 price in leva, converted at 1.95583"
+        }
+      ],
+      "tips": [
+        "Come by 08:00: the van has 18 seats and fills up"
+      ],
+      "how_to_check": [
+        "The operator's site: plovdivexpres-2000.com",
+        "Ask your host to call the operator the day before"
+      ],
+      "message": {
+        "local": "Здравейте! Тръгва ли микробусът за Велико Търново в 8:30 от Автогара Север на 12 ноември? Колко струва билетът в евро?",
+        "translation": "Hello! Does the minibus to Veliko Tarnovo leave at 8:30 from Avtogara Sever on 12 November? How much is the ticket in euros?"
+      },
+      "sources": [
+        "https://plovdivexpres-2000.com/"
+      ]
+    },
+    {
+      "id": "train-change",
+      "title": "Early train, change in Stara Zagora",
+      "mode": "train",
+      "summary": "06:45 → 11:00 · 4 h 15 min · €7.57",
+      "confidence": "Confirmed",
+      "confidence_short": "BDZ planner",
+      "confidence_reason": "BDZ's journey planner queried for 12 Nov 2026",
+      "last_confirmed": "2026-11-10",
+      "reliability": "Only a 5-minute change in Stara Zagora; buy one ticket for the whole trip, since connections are held for through tickets according to a 2025 traveller",
+      "rides": [
+        {
+          "mode": "train",
+          "operator": "BDZ",
+          "service": "8631",
+          "pattern": "scheduled",
+          "board": {
+            "name": "Plovdiv Central Station",
+            "local_name": "гара Пловдив",
+            "search_query": "Plovdiv Central Station",
+            "lat": 42.134422,
+            "lon": 24.741373
+          },
+          "alight": {
+            "name": "Stara Zagora station",
+            "local_name": "гара Стара Загора",
+            "town": "Стара Загора"
+          },
+          "departures": "06:45",
+          "duration": "1 h 51 min (arrives 08:36)",
+          "sources": [
+            "https://razpisanie.bdz.bg/bg/plovdiv/veliko-tarnovo/12.11.2026"
+          ]
+        },
+        {
+          "mode": "train",
+          "operator": "BDZ",
+          "service": "464",
+          "pattern": "scheduled",
+          "board": {
+            "name": "Stara Zagora station",
+            "local_name": "гара Стара Загора",
+            "town": "Стара Загора"
+          },
+          "alight": {
+            "name": "Veliko Tarnovo station",
+            "local_name": "гара Велико Търново",
+            "search_query": "Veliko Tarnovo railway station",
+            "lat": 43.074146,
+            "lon": 25.63824
+          },
+          "departures": "08:41",
+          "duration": "2 h 19 min (arrives 11:00)",
+          "price": "€7.57 for the whole trip",
+          "sources": [
+            "https://razpisanie.bdz.bg/bg/plovdiv/veliko-tarnovo/12.11.2026"
+          ]
+        }
+      ],
+      "time_breakdown": [
+        "06:45–08:36 train",
+        "5 min change",
+        "08:41–11:00 train"
+      ],
+      "facts": [
+        {
+          "fact": "Connection held for through tickets",
+          "confidence": "Likely",
+          "reason": "one first-hand report from 2025"
+        }
+      ],
+      "how_to_check": [
+        "Query the BDZ planner for your date; buy one ticket for both trains"
+      ],
+      "sources": [
+        "https://www.reddit.com/r/AskBulgaria/comments/1o4gsyo/public_transport_in_bulgaria/"
+      ]
+    },
+    {
+      "id": "minibus-1630",
+      "title": "Afternoon minibus (Bachvarovi)",
+      "mode": "minibus",
+      "summary": "16:30 → about 19:50–20:00 · 3.5 h · €12.78",
+      "confidence": "Likely",
+      "confidence_short": "operator page, undated",
+      "confidence_reason": "The operator's timetable and euro price have no date; one 2025 post agrees",
+      "last_confirmed": "2025-09",
+      "reliability": "No reports on punctuality",
+      "rides": [
+        {
+          "mode": "minibus",
+          "operator": "Bachvarovi",
+          "pattern": "scheduled",
+          "board": {
+            "name": "Avtogara Sever (North bus station)",
+            "local_name": "Автогара Север",
+            "town": "Пловдив"
+          },
+          "alight": {
+            "name": "5th Building stop (university)",
+            "local_name": "спирка 5-ти корпус",
+            "from_centre": "A stop in town, not a bus station; the van continues to Gorna Oryahovitsa",
+            "town": "Велико Търново"
+          },
+          "departures": "16:30 daily, via Hisarya, Karlovo, Kazanlak and Gabrovo",
+          "duration": "about 3 h 20–30 min",
+          "price": "€12.78",
+          "payment": "The operator's online shop, or on board",
+          "sources": [
+            "https://ppbachvarovi.com/razpisanie/"
+          ]
+        }
+      ],
+      "how_to_check": [
+        "The operator's timetable page: ppbachvarovi.com/razpisanie"
+      ],
+      "sources": [
+        "https://ppbachvarovi.com/razpisanie/"
+      ]
+    }
+  ],
+  "border": null,
+  "ruled_out": [
+    {
+      "what": "Bus from Yug station at 04:30 and a 10:25 departure",
+      "reason": "Listed only on the obilet aggregator; no operator page confirms them"
+    },
+    {
+      "what": "Private driver or taxi",
+      "reason": "No operator or price could be verified"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://razpisanie.bdz.bg/bg/plovdiv/veliko-tarnovo/12.11.2026",
+      "title": "BDZ journey planner, Plovdiv – Veliko Tarnovo, 12.11.2026",
+      "author": "BDZ",
+      "date": "2026-11-10",
+      "language": "bg",
+      "kind": "official timetable for the date",
+      "status": "used",
+      "reason": "Official live data with fares"
+    },
+    {
+      "url": "https://razpisanie.bdz.bg/bg/train-info/4632/12.11.2026",
+      "title": "BDZ train 4632, 12.11.2026",
+      "author": "BDZ",
+      "date": "2026-11-10",
+      "language": "bg",
+      "kind": "official timetable for the date",
+      "status": "used",
+      "reason": "Stops and times for the direct train"
+    },
+    {
+      "url": "https://plovdivexpres-2000.com/",
+      "title": "Plovdiv Express-2000",
+      "author": "Plovdiv Express-2000",
+      "undated": true,
+      "checked": "2026-11-10",
+      "language": "bg",
+      "kind": "official operator page",
+      "status": "used",
+      "reason": "Operator's timetable"
+    },
+    {
+      "url": "https://ppbachvarovi.com/razpisanie/",
+      "title": "Bachvarovi timetable",
+      "author": "Bachvarovi",
+      "undated": true,
+      "checked": "2026-11-10",
+      "language": "bg",
+      "kind": "official operator page",
+      "status": "used",
+      "reason": "Operator's timetable and euro price"
+    },
+    {
+      "url": "https://www.reddit.com/r/AskBulgaria/comments/1o4gsyo/public_transport_in_bulgaria/",
+      "title": "Public transport in Bulgaria",
+      "author": "r/AskBulgaria",
+      "date": "2025-10",
+      "language": "en",
+      "kind": "forum, first-hand",
+      "status": "used",
+      "reason": "Practical details on the minibuses and connections"
+    },
+    {
+      "url": "https://www.obilet.com/",
+      "title": "obilet listings",
+      "status": "rejected",
+      "reason": "Aggregator; times and stations contradict the operators"
+    },
+    {
+      "url": "https://bulgariaguidebook.com/",
+      "title": "Bulgaria Guidebook",
+      "status": "rejected",
+      "reason": "Says there is no direct train and names the wrong Plovdiv station; contradicted by BDZ"
+    }
+  ]
+}
